@@ -1,2 +1,3 @@
 # dotclaude
-dotfiles for claude code
+
+personal claude code config. copy what you find useful.

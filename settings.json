@@ -1,0 +1,15 @@
+{
+    "includeCoAuthoredBy": false,
+    "hooks": {
+      "Notification": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "./hooks/notify-macos.sh"
+            }
+          ]
+        }
+      ]
+    }
+  }

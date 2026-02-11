@@ -1,5 +1,5 @@
 ---
-description: Audit PR changes for React/Next.js performance issues
+description: Audit PR changes for Vercel Next.js frontend performance issues. Only use for projects deployed on Vercel with Next.js.
 allowed-tools: Bash(git diff:*), Bash(git log:*), Read, Skill
 ---
 
@@ -8,10 +8,10 @@ Invoke the skill "vercel-react-best-practices" now.
 After loading the skill, review the changes in this PR for violations:
 
 ## Changed Files
-!`git diff main --name-only`
+!`git diff main...HEAD --name-only`
 
 ## Diff
-!`git diff main`
+!`git diff main...HEAD`
 
 For each issue found:
 1. Show the file and line

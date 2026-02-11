@@ -1,40 +1,67 @@
 ---
-description: Test API routes with JWT authentication
+description: Verify that specific code changes in routes work as expected
 allowed-tools: Bash(curl:*), Bash(git:*), Bash(cat:*), Bash(grep:*), Bash(find:*)
+arguments:
+  - name: token
+    description: JWT bearer token for authentication
+    required: true
+  - name: base_url
+    description: API base URL (e.g. http://localhost:3000)
+    required: false
 ---
 
 # Configuration
 
-- **Base URL**: $BASE_URL
-- **Routes location**: $ROUTES_DIR (default: `src/routes/`)
+- **JWT Token**: `$ARGUMENTS.token`
+- **Base URL**: `$ARGUMENTS.base_url` (fallback: `$BASE_URL`, default: `http://localhost:3000`)
 
 ---
 
 # Instructions
 
-## Step 1: Get JWT Token
+## Step 1: Understand What Changed
 
-Ask the user for their JWT token.
+Read the actual diff of modified route files to understand **what specifically was changed** — new fields, updated logic, added validation, new endpoints, changed response shape, etc.
 
-## Step 2: Test ONLY Changed Routes
+```bash
+git diff -- '*.ts' '*.js'
+```
 
-You should already know which routes you changed in this session. Test only those.
+Also check unstaged/untracked route files if needed. The goal is to know exactly what behavior was added or modified so you can target your tests at that.
 
-If you're unsure which routes were modified, check the actual route files to verify the exact paths exist before testing. **Never guess or hallucinate route paths.**
+## Step 2: Design Targeted Tests
 
-## Step 3: Run Tests
+Based on the diff, craft requests that **directly exercise the changed code paths**. Do NOT just hit the endpoint generically — test the specific thing that changed.
+
+Examples:
+- Added a new query param filter? Send requests with and without that param, verify results differ correctly.
+- Changed a validation rule? Send payloads that should pass and payloads that should now be rejected.
+- Added a new field to the response? Check that the field is present and has the right shape/value.
+- New endpoint? Test it with valid data, then with bad data to confirm error handling.
+
+## Step 3: Execute
+
 ```bash
 curl -s -w "\n[%{http_code}]" \
-  -X METHOD "$BASE_URL/ENDPOINT" \
-  -H "Authorization: Bearer TOKEN" \
+  -X METHOD "BASE_URL/ENDPOINT" \
+  -H "Authorization: Bearer $ARGUMENTS.token" \
   -H "Content-Type: application/json" \
-  -d 'BODY_IF_NEEDED'
+  -d 'PAYLOAD'
 ```
 
-## Step 4: Quick Summary
+For each test, explain in one line **what you're verifying** before running it.
+
+## Step 4: Report
+
+For each change, report whether the new behavior works:
+
 ```
-✅ GET /endpoint1 - 200
-❌ POST /endpoint2 - 500 (error details)
+Change: Added `status` filter to GET /api/orders
+  curl ... ?status=pending   → 200, returned only pending orders ✅
+  curl ... ?status=invalid   → 400, rejected as expected ✅
+
+Change: New field `metadata` in POST /api/items response
+  curl ... -d '{...}'        → 201, `metadata` present in response ✅
 ```
 
-Only show details for failures.
+If something doesn't behave as the code intends, flag it clearly with the expected vs actual behavior.

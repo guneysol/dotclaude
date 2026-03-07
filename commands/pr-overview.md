@@ -1,7 +1,7 @@
 ---
 description: Quick PR overview — changes, blockers, and what to test
 allowed-tools: Bash(gh:*), Bash(git:*)
-argument: PR number
+argument-hint: "[PR number]"
 ---
 
 Fetch PR #$ARGUMENTS details, diff, and check status using `gh`. Then give me a short report:

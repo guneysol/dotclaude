@@ -3,6 +3,7 @@ name: silent-failure-hunter
 description: |
   Finds silent failures, swallowed errors, and fallbacks that hide problems.
 tools: Read, Grep, Glob, Bash
+model: sonnet
 color: yellow
 ---
 

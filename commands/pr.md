@@ -1,6 +1,7 @@
 ---
 description: Commit changes, push to remote, and create a pull request
 allowed-tools: Bash(git:*), Bash(gh:*)
+disable-model-invocation: true
 ---
 
 # Current State

@@ -1,6 +1,8 @@
 ---
 description: Audit PR changes for Vercel Next.js frontend performance issues. Only use for projects deployed on Vercel with Next.js.
 allowed-tools: Bash(git diff:*), Bash(git log:*), Read, Skill
+context: fork
+agent: perf-audit
 ---
 
 Invoke the skill "vercel-react-best-practices" now.

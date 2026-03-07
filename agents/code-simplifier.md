@@ -3,6 +3,7 @@ name: code-simplifier
 description: |
   Simplifies code for clarity and maintainability while preserving functionality.
 model: opus
+tools: Read, Grep, Glob, Bash
 color: orange
 ---
 

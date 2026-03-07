@@ -1,6 +1,7 @@
 ---
 description: Review completed work, fix issues, then prepare for commit/PR
-allowed-tools: Bash(git:*), Read, Edit, Write, Grep, Glob, Task
+allowed-tools: Bash(git:*), Read, Edit, Write, Grep, Glob, Agent
+disable-model-invocation: true
 ---
 
 Review my recent changes (uncommitted, or my commits on this branch).
@@ -11,7 +12,7 @@ Get the list of changed files using `git diff --name-only` and `git diff --cache
 
 ## Step 2: Verify
 
-Run agents **in parallel** using the Task tool. Pass each agent the list of changed files and a brief summary of what changed.
+Run agents **in parallel** using the Agent tool. Pass each agent the list of changed files and a brief summary of what changed.
 
 - `bug-hunter` (always)
 - `silent-failure-hunter` (always)
@@ -36,7 +37,7 @@ If UI/frontend files were changed, add this note at the end:
 
 ## Rules
 
-- All verification via Task subagents (keeps main context clean)
+- All verification via Agent subagents (keeps main context clean)
 - Run subagents in parallel
 - Auto-fix Critical/High only, leave Medium alone
 - Always include file list + change summary in agent prompts

@@ -3,6 +3,7 @@ name: perf-audit
 description: |
   React/Next.js performance auditor. Use when frontend files (.tsx, .jsx, .vue) are modified.
 tools: Read, Grep, Glob, Bash, Skill
+model: sonnet
 color: purple
 ---
 

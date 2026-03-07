@@ -1,6 +1,8 @@
 ---
 description: Verify that specific code changes in routes work as expected
 allowed-tools: Bash(curl:*), Bash(git:*), Bash(cat:*), Bash(grep:*), Bash(find:*)
+argument-hint: "[jwt-token] [base-url]"
+disable-model-invocation: true
 arguments:
   - name: token
     description: JWT bearer token for authentication
